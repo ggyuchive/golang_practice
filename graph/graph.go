@@ -1,38 +1,76 @@
 package graph
 
+var (
+	Visited []bool
+	Dist    []int
+)
+
+type AdjLengthChecker interface {
+	LenAdj(i int) int
+	Size() int
+}
+type Graph struct {
+	N          int
+	Undirected bool
+	Adj        [][]int
+}
+
+// Graph Constructor
+func NewGraph(n int, undirected bool) *Graph {
+	Visited = make([]bool, n)
+	Dist = make([]int, n)
+	return &Graph{
+		N:          n,
+		Undirected: undirected,
+		Adj:        make([][]int, n),
+	}
+}
+
+func (g *Graph) AddEdge(from int, to int) {
+	g.Adj[from] = append(g.Adj[from], to)
+	if g.Undirected {
+		g.Adj[to] = append(g.Adj[to], from)
+	}
+}
+
+func (g *Graph) LenAdj(i int) int {
+	return len(g.Adj[i])
+}
+func (g *Graph) Size() int {
+	return g.N
+}
+
 type WEdge struct {
 	To   int
 	Dist int
 }
-
-// Generic type T
-type Graph[T int | WEdge] struct {
+type WGraph struct {
 	N          int
 	Undirected bool
-	Adj        [][]T
+	Adj        [][]WEdge
 }
 
-// Constructor
-func NewGraph[T int | WEdge](n int, undirected bool) *Graph[T] {
-	return &Graph[T]{
+// WGraph Constructor
+func NewWGraph(n int, undirected bool) *WGraph {
+	Visited = make([]bool, n)
+	Dist = make([]int, n)
+	return &WGraph{
 		N:          n,
 		Undirected: undirected,
-		Adj:        make([][]T, n),
+		Adj:        make([][]WEdge, n),
 	}
 }
 
-// ensure T is int or struct
-// struct T must have field - To int
-func (g *Graph[T]) AddEdge(from int, edge T) {
+func (g *WGraph) AddEdge(from int, edge WEdge) {
 	g.Adj[from] = append(g.Adj[from], edge)
 	if g.Undirected {
-		switch v := any(edge).(type) {
-		case int:
-			g.Adj[v] = append(g.Adj[v], any(from).(T))
-		case WEdge:
-			g.Adj[v.To] = append(g.Adj[v.To], edge)
-		default:
-			panic("AddEdge: unsupported edge type")
-		}
+		g.Adj[edge.To] = append(g.Adj[edge.To], WEdge{from, edge.Dist})
 	}
+}
+
+func (g *WGraph) LenAdj(i int) int {
+	return len(g.Adj[i])
+}
+func (g *WGraph) Size() int {
+	return g.N
 }
