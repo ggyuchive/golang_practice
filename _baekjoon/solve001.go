@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"ggyuchive/graph"
 	"ggyuchive/input"
+	"math"
 )
 
 func solve34009() {
@@ -46,7 +47,6 @@ func solve2644() {
 		x, y := input.NextInt()-1, input.NextInt()-1
 		g.AddEdge(x, y)
 	}
-	g.ConstructTraversal(S)
 	g.DFS(S)
 	if !g.Visited[E] {
 		fmt.Print(-1)
@@ -66,7 +66,6 @@ func solve5014() {
 			g.AddEdge(a, a-D)
 		}
 	}
-	g.ConstructTraversal(S)
 	g.BFS(S)
 	if g.Dist[G] == -1 {
 		fmt.Print("use the stairs")
@@ -75,6 +74,11 @@ func solve5014() {
 	}
 }
 
+func solve13009() {
+	N := input.NextInt()
+	fmt.Print(int(math.Sqrt(float64(N))))
+}
+
 func main() {
-	solve5014()
+	solve13009()
 }
