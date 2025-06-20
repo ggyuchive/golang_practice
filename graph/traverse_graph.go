@@ -19,11 +19,16 @@ func (g *Graph) ConstructTraversal(s int) {
 
 // DFS using recursion
 func (g *Graph) DFS(s int) {
+	g.ConstructTraversal(s)
+	g.DFS_(s)
+}
+
+func (g *Graph) DFS_(s int) {
 	for _, e := range g.Adj[s] {
 		if !g.Visited[e] {
 			g.Visited[e] = true
 			g.Dist[e] = g.Dist[s] + 1
-			g.DFS(e)
+			g.DFS_(e)
 		}
 	}
 }
@@ -42,6 +47,7 @@ func (g *Graph) DFSAll() int {
 
 // BFS using queue
 func (g *Graph) BFS(s int) {
+	g.ConstructTraversal(s)
 	Queue.Init().PushBack(s)
 	for Queue.Len() > 0 {
 		curr := Queue.Remove(Queue.Front()).(int)
