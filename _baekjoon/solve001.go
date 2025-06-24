@@ -79,6 +79,32 @@ func solve13009() {
 	fmt.Print(int(math.Sqrt(float64(N))))
 }
 
+func solve1261() {
+	dx := []int{1, -1, 0, 0}
+	dy := []int{0, 0, 1, -1}
+	N, M := input.NextInt(), input.NextInt()
+	g := graph.NewWGraph(N*M, true)
+	grid := make([][]int, M)
+	for i := 0; i < M; i++ {
+		str := input.NextStr()
+		for j := 0; j < N; j++ {
+			grid[i] = append(grid[i], int(str[j]-'0'))
+		}
+	}
+	for i := 0; i < M; i++ {
+		for j := 0; j < N; j++ {
+			for k := 0; k < 4; k++ {
+				ni, nj := i+dx[k], j+dy[k]
+				if ni >= 0 && ni < M && nj >= 0 && nj < N {
+					g.AddEdge(i+j*M, graph.WEdge{ni + nj*M, grid[ni][nj]})
+				}
+			}
+		}
+	}
+	ret := g.Dijkstra(0)
+	fmt.Print(ret[N*M-1])
+}
+
 func main() {
-	solve13009()
+	solve1261()
 }

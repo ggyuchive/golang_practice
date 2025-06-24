@@ -4,10 +4,6 @@ import (
 	"container/list"
 )
 
-var (
-	Queue list.List
-)
-
 // Get ready for traversal
 func (g *Graph) ConstructTraversal(s int) {
 	for i := range g.Visited {
@@ -47,6 +43,7 @@ func (g *Graph) DFSAll() int {
 
 // BFS using queue
 func (g *Graph) BFS(s int) {
+	var Queue list.List
 	g.ConstructTraversal(s)
 	Queue.Init().PushBack(s)
 	for Queue.Len() > 0 {

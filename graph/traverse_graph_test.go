@@ -29,7 +29,6 @@ func TestDFS(t *testing.T) {
 	if comp != 2 {
 		t.Errorf("[TestDFS] # of expected component = %d, got %d", 2, comp)
 	}
-	g.ConstructTraversal(0)
 	g.DFS(0)
 	expected := []int{0, 3, 2, 1, 3, -1, -1, -1}
 	for i := 0; i < len(expected); i++ {
@@ -45,7 +44,6 @@ func TestBFS(t *testing.T) {
 	if comp != 2 {
 		t.Errorf("[TestDFS] # of expected component = %d, got %d", 2, comp)
 	}
-	g.ConstructTraversal(0)
 	g.BFS(0)
 	expected := []int{0, 3, 2, 1, 3, -1, -1, -1}
 	for i := 0; i < len(expected); i++ {
