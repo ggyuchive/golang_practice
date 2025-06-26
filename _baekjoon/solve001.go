@@ -105,6 +105,6 @@ func solve1261() {
 	fmt.Print(ret[N*M-1])
 }
 
-func main() {
-	solve1261()
-}
+//func main() {
+//	solveXXXX()
+//}

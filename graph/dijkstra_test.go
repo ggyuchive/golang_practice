@@ -7,14 +7,14 @@ import (
 
 /*
  *	     4
- *	   /   \
+ *     /   \
  *   (3)   (2)
- *	 /       \
- *	2 - (0) - 1
+ *   /       \
+ *  2 - (0) - 1
  *	|
  * (5)
  *	|
- *	3 - (2) - 0	   6 - (4) - 7 - (1) - 5
+ *	3 - (2) - 0    6 - (4) - 7 - (1) - 5
  */
 func createMockWGraph() *graph.WGraph {
 	g := graph.NewWGraph(8, false)
